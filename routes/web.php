@@ -1,30 +1,29 @@
 <?php
 
-// {{-- 1. Продемонструвати основи:
-// - декілька рутів;
-// - get запити з параметрами;
-// - post запити;
-// - controller з декільками методами, які будуть відповідати за той чи інший запит;
-// - декілька шаблонів, які відповідним чином реагують на ті чи інші запити;
-// - модель, яка буде імітувати якісь дані (наприклад дані про товар чи про юзера).
-
-// 2. Продемонструвати можливості blade template, а саме:
-// - вміння вставити змінні, які ви туди передали
-// - вміння foreach-ем пройти по масиву, який ви туди передали
-// - зробити if
-// - зробити наслідування від базового шаблону --}}
+// - створити міграції та сформуйте структуру БД
+// - забезпечити щоб в БД були такі сутності, між якими буде встановлений зв’язок один-до-багатьох та багато-до-багатьох
+// - hasMany
+// - belongsToMany
+// - побудувати відповідні рути та контролери, які дозволять вам мати навігацію по сутностям із БД. Приклад показано у прикріпленому відео
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\ReviewController;
 
-// Main
-Route::get('/', [ProductController::class, 'home']);
+Route::get('/', function () {
+    return view('welcome');
+});
 
-// GET without parametres
-Route::get('/products', [ProductController::class, 'index']);
+// Categories Routes
+Route::resource('categories', CategoryController::class);
 
-// GET with parametres
-Route::get('/products/{id}', [ProductController::class, 'show']);
+// Products Routes
+Route::resource('products', ProductController::class);
 
-// POST request
-Route::post('/products', [ProductController::class, 'store']);
+// Tags Routes
+Route::resource('tags', TagController::class);
+
+// Reviews Routes
+Route::resource('reviews', ReviewController::class);
