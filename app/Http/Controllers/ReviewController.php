@@ -40,7 +40,7 @@ class ReviewController extends Controller
         ]);
 
         Review::create($validated);
-        return redirect()->route('reviews.index')->with('success', 'Відгук створений успішно!');
+        return redirect()->route('reviews.index')->with('success', 'Review created successfully!');
     }
 
     /**
@@ -73,7 +73,7 @@ class ReviewController extends Controller
         ]);
 
         $review->update($validated);
-        return redirect()->route('reviews.index')->with('success', 'Відгук оновлений успішно!');
+        return redirect()->route('reviews.index')->with('success', 'Review updated successfully!');
     }
 
     /**
@@ -82,6 +82,6 @@ class ReviewController extends Controller
     public function destroy(Review $review): RedirectResponse
     {
         $review->delete();
-        return redirect()->route('reviews.index')->with('success', 'Відгук видалений успішно!');
+        return redirect()->route('reviews.index')->with('success', 'Review deleted successfully!');
     }
 }

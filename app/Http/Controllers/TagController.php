@@ -36,7 +36,7 @@ class TagController extends Controller
         ]);
 
         Tag::create($validated);
-        return redirect()->route('tags.index')->with('success', 'Тег створений успішно!');
+        return redirect()->route('tags.index')->with('success', 'Tag created successfully!');
     }
 
     /**
@@ -66,7 +66,7 @@ class TagController extends Controller
         ]);
 
         $tag->update($validated);
-        return redirect()->route('tags.index')->with('success', 'Тег оновлений успішно!');
+        return redirect()->route('tags.index')->with('success', 'Tag updated successfully!');
     }
 
     /**
@@ -75,6 +75,6 @@ class TagController extends Controller
     public function destroy(Tag $tag): RedirectResponse
     {
         $tag->delete();
-        return redirect()->route('tags.index')->with('success', 'Тег видалений успішно!');
+        return redirect()->route('tags.index')->with('success', 'Tag deleted successfully!');
     }
 }

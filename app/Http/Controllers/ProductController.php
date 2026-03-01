@@ -11,42 +11,7 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    // // Main
-    // public function home()
-    // {
-    //     return view('home');
-    // }
-
-    // // Show all products
-    // public function index()
-    // {
-    //     $products = Product::all();
-    //     return view('products.index', compact('products'));
-    // }
-
-    // // Showw one product (GET with parametre)
-    // public function show($id)
-    // {
-    //     $product = Product::find($id);
-
-    //     if (!$product) {
-    //         abort(404);
-    //     }
-
-    //     return view('products.show', compact('product'));
-    // }
-
-
-    // // POST request
-    // public function store(StoreProductRequest $request)
-    // {
-    //     Product::create($request->validated());
-    //     return redirect('/products');
-    // }
-
-
-
-        /**
+    /**
      * Display a listing of products
      */
     public function index(): View
@@ -85,7 +50,7 @@ class ProductController extends Controller
             $product->tags()->attach($request->input('tags'));
         }
 
-        return redirect()->route('products.index')->with('success', 'Товар створений успішно!');
+        return redirect()->route('products.index')->with('success', 'Product created successfully!');
     }
 
     /**
@@ -125,7 +90,7 @@ class ProductController extends Controller
         $product->update($validated);
         $product->tags()->sync($request->input('tags', []));
 
-        return redirect()->route('products.index')->with('success', 'Товар оновлений успішно!');
+        return redirect()->route('products.index')->with('success', 'Product updated successfully!');
     }
 
     /**
@@ -134,6 +99,6 @@ class ProductController extends Controller
     public function destroy(Product $product): RedirectResponse
     {
         $product->delete();
-        return redirect()->route('products.index')->with('success', 'Товар видалений успішно!');
+        return redirect()->route('products.index')->with('success', 'Product deleted successfully!');
     }
 }
