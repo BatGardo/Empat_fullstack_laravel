@@ -17,7 +17,6 @@ class ProductSeeder extends Seeder
         Product::factory(15)
             ->create()
             ->each(function ($product) {
-                // Додаємо 2-4 тегів до кожного товару
                 $tags = Tag::inRandomOrder()->limit(rand(2, 4))->pluck('id');
                 $product->tags()->attach($tags);
             });
