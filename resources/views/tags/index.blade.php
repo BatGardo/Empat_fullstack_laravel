@@ -1,5 +1,5 @@
 <!-- filepath: resources/views/tags/index.blade.php -->
-@extends('layouts.app')
+@extends('layouts.appMain')
 
 @section('title', 'Tags')
 

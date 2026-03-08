@@ -67,9 +67,11 @@ class ProductController extends Controller
      */
     public function edit(Product $product): View
     {
+        $product->load('tags');
+
         $categories = Category::all();
         $tags = Tag::all();
-        $product->load('tags');
+
         return view('products.edit', compact('product', 'categories', 'tags'));
     }
 
@@ -77,21 +79,30 @@ class ProductController extends Controller
      * Update the specified product in storage
      */
     public function update(Request $request, Product $product): RedirectResponse
-    {
-        $validated = $request->validate([
-            'name' => 'required|max:255',
-            'price' => 'required|numeric|min:0',
-            'description' => 'nullable|string',
-            'category_id' => 'required|exists:categories,id',
-            'tags' => 'nullable|array',
-            'tags.*' => 'exists:tags,id',
-        ]);
+{
+    $validated = $request->validate([
+        'name' => 'required|max:255',
+        'price' => 'required|numeric|min:0',
+        'description' => 'nullable|string',
+        'category_id' => 'required|exists:categories,id',
+        'tags' => 'nullable|array',
+        'tags.*' => 'exists:tags,id',
+    ]);
 
-        $product->update($validated);
-        $product->tags()->sync($request->input('tags', []));
+    $product->update([
+        'name' => $validated['name'],
+        'price' => $validated['price'],
+        'description' => $validated['description'] ?? null,
+        'category_id' => $validated['category_id'],
+    ]);
 
-        return redirect()->route('products.index')->with('success', 'Product updated successfully!');
-    }
+    $product->tags()->sync($validated['tags'] ?? []);
+
+    return redirect()
+        ->route('products.index')
+        ->with('success', 'Product updated successfully!');
+}
+
 
     /**
      * Remove the specified product from storage
