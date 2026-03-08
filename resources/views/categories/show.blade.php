@@ -1,5 +1,5 @@
 <!-- filepath: resources/views/categories/show.blade.php -->
-@extends('layouts.app')
+@extends('layouts.appMain')
 
 @section('title', $category->name)
 

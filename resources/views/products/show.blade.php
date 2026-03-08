@@ -1,5 +1,5 @@
 <!-- filepath: resources/views/products/show.blade.php -->
-@extends('layouts.app')
+@extends('layouts.appMain')
 
 @section('title', $product->name)
 

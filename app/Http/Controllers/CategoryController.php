@@ -52,7 +52,7 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified category
      */
-    public function edit(Category $category): View
+    public function edit(Category $category)
     {
         return view('categories.edit', compact('category'));
     }
@@ -60,15 +60,18 @@ class CategoryController extends Controller
     /**
      * Update the specified category in storage
      */
-    public function update(Request $request, Category $category): RedirectResponse
+    public function update(Request $request, Category $category)
     {
-        $validated = $request->validate([
-            'name' => 'required|unique:categories,name,' . $category->id . '|max:255',
-            'description' => 'nullable|string',
+        $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'nullable'
         ]);
 
-        $category->update($validated);
-        return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
+        $category->update($request->all());
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'Category updated successfully');
     }
 
     /**
